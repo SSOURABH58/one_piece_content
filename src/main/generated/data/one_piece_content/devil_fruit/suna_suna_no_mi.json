@@ -1,0 +1,29 @@
+{
+  "modelId": "one_piece_content:devil_fruit/suna_suna_no_mi.json",
+  "passives": [],
+  "paths": [
+    {
+      "skills": [
+        "one_piece_content:sandstorm",
+        "one_piece_content:sandstorm_modifier_1"
+      ]
+    },
+    {
+      "skills": [
+        "one_piece_content:sand_hand",
+        "one_piece_content:sand_drain"
+      ]
+    },
+    {
+      "skills": [
+        "one_piece_content:sand_blade",
+        "one_piece_content:sand_spikes"
+      ]
+    },
+    {
+      "skills": [
+        "one_piece_content:quicksand"
+      ]
+    }
+  ]
+}

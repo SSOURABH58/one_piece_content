@@ -1,0 +1,51 @@
+{
+  "exclusive": {
+    "bidirectional": [],
+    "unidirectional": []
+  },
+  "normal": {
+    "bidirectional": [],
+    "unidirectional": [
+      {
+        "source": "one_piece_content:swordsmen_skill_1",
+        "style": "one_piece_content:swordsmen_style",
+        "target": "one_piece_content:swordsmen_skill_2"
+      },
+      {
+        "source": "one_piece_content:swordsmen_skill_1",
+        "style": "one_piece_content:swordsmen_style",
+        "target": "one_piece_content:swordsmen_skill_3"
+      },
+      {
+        "source": "one_piece_content:brawler_skill_1",
+        "style": "one_piece_content:brawler_style",
+        "target": "one_piece_content:brawler_skill_2"
+      },
+      {
+        "source": "one_piece_content:brawler_skill_1",
+        "style": "one_piece_content:brawler_style",
+        "target": "one_piece_content:brawler_skill_3"
+      },
+      {
+        "source": "one_piece_content:sniper_skill_1",
+        "style": "one_piece_content:sniper_style",
+        "target": "one_piece_content:sniper_skill_2"
+      },
+      {
+        "source": "one_piece_content:sniper_skill_1",
+        "style": "one_piece_content:sniper_style",
+        "target": "one_piece_content:sniper_skill_3"
+      },
+      {
+        "source": "one_piece_content:swordsmen_skill_1",
+        "style": "one_piece_content:swordsmen_style",
+        "target": "one_piece_content:requires_both"
+      },
+      {
+        "source": "one_piece_content:brawler_skill_1",
+        "style": "one_piece_content:brawler_style",
+        "target": "one_piece_content:requires_both"
+      }
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "cost": 1,
+  "description": "Cut Copper Stairs description text",
+  "icon": {
+    "type": "item",
+    "data": {
+      "item": "minecraft:cut_copper_stairs"
+    }
+  },
+  "required_exclusions": 1,
+  "required_points": 0,
+  "required_skills": 1,
+  "required_spent_points": 0,
+  "rewards": [],
+  "size": 1.0,
+  "title": "Cut Copper Stairs"
+}

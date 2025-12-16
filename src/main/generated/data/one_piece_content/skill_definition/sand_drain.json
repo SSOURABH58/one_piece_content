@@ -1,0 +1,35 @@
+{
+  "cost": 1,
+  "description": "Sand Drain Description",
+  "icon": {
+    "type": "texture",
+    "data": {
+      "texture": "one_piece_content:textures/spell/sand_drain.png"
+    }
+  },
+  "required_exclusions": 1,
+  "required_points": 0,
+  "required_skills": 1,
+  "required_spent_points": 0,
+  "rewards": [
+    {
+      "type": "one_piece_api:spell",
+      "data": {
+        "containers": [
+          {
+            "content": "MAGIC",
+            "is_proxy": true,
+            "max_spell_count": 0,
+            "pool": "",
+            "slot": "",
+            "spell_ids": [
+              "one_piece_content:sand_drain"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "size": 1.0,
+  "title": "Sand Drain"
+}

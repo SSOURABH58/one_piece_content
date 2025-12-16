@@ -1,0 +1,16 @@
+{
+  "backTexture": "one_piece_content:textures/classes/fishman.png",
+  "description": "Auto-generated description for Fishman class",
+  "name": "Fishman",
+  "nameTexture": "one_piece_content:textures/classes/fishman_name.png",
+  "rewards": [
+    {
+      "level": 1,
+      "reward": "one_piece_content:master_of_the_seas"
+    },
+    {
+      "level": 10,
+      "reward": "one_piece_content:fishman_active"
+    }
+  ]
+}

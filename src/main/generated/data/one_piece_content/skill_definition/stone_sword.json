@@ -1,0 +1,17 @@
+{
+  "cost": 1,
+  "description": "Stone Sword description text",
+  "icon": {
+    "type": "item",
+    "data": {
+      "item": "minecraft:stone_sword"
+    }
+  },
+  "required_exclusions": 1,
+  "required_points": 0,
+  "required_skills": 1,
+  "required_spent_points": 0,
+  "rewards": [],
+  "size": 1.0,
+  "title": "Stone Sword"
+}

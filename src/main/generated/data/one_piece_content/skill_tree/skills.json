@@ -1,0 +1,86 @@
+[
+  {
+    "type": "SKILL_TREE",
+    "definition": "one_piece_content:swordsmen_skill_1",
+    "isRoot": true,
+    "x": -70,
+    "y": -40
+  },
+  {
+    "type": "SKILL_TREE",
+    "definition": "one_piece_content:swordsmen_skill_2",
+    "isRoot": false,
+    "x": -138,
+    "y": 0
+  },
+  {
+    "type": "SKILL_TREE",
+    "definition": "one_piece_content:swordsmen_skill_3",
+    "isRoot": false,
+    "x": -70,
+    "y": -120
+  },
+  {
+    "type": "SKILL_TREE",
+    "definition": "one_piece_content:brawler_skill_1",
+    "isRoot": true,
+    "x": 70,
+    "y": -40
+  },
+  {
+    "type": "SKILL_TREE",
+    "definition": "one_piece_content:brawler_skill_2",
+    "isRoot": false,
+    "x": 130,
+    "y": 0
+  },
+  {
+    "type": "SKILL_TREE",
+    "definition": "one_piece_content:brawler_skill_3",
+    "isRoot": false,
+    "x": 70,
+    "y": -120
+  },
+  {
+    "type": "SKILL_TREE",
+    "definition": "one_piece_content:sniper_skill_1",
+    "isRoot": true,
+    "x": 0,
+    "y": 80
+  },
+  {
+    "type": "SKILL_TREE",
+    "definition": "one_piece_content:sniper_skill_2",
+    "isRoot": false,
+    "x": 70,
+    "y": 120
+  },
+  {
+    "type": "SKILL_TREE",
+    "definition": "one_piece_content:sniper_skill_3",
+    "isRoot": false,
+    "x": -70,
+    "y": 120
+  },
+  {
+    "type": "SKILL_TREE",
+    "definition": "one_piece_content:requires_both",
+    "isRoot": false,
+    "x": 0,
+    "y": -70
+  },
+  {
+    "type": "CLASS",
+    "definition": "one_piece_content:master_of_the_seas",
+    "isRoot": false,
+    "x": 0,
+    "y": 0
+  },
+  {
+    "type": "CLASS",
+    "definition": "one_piece_content:fishman_active",
+    "isRoot": false,
+    "x": 50,
+    "y": 0
+  }
+]

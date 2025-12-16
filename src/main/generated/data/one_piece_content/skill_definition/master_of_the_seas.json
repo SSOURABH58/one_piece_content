@@ -1,0 +1,26 @@
+{
+  "cost": 0,
+  "description": "[MASTER_OF_THE_SEAS Description text]",
+  "icon": {
+    "type": "item",
+    "data": {
+      "item": "minecraft:tropical_fish"
+    }
+  },
+  "required_exclusions": 0,
+  "required_points": 0,
+  "required_skills": 0,
+  "required_spent_points": 0,
+  "rewards": [
+    {
+      "type": "one_piece_api:passive_ability",
+      "data": {
+        "abilities": [
+          "one_piece_content:master_of_the_seas"
+        ]
+      }
+    }
+  ],
+  "size": 1.0,
+  "title": "Unlock MASTER_OF_THE_SEAS"
+}

@@ -1,0 +1,46 @@
+{
+  "modelId": "one_piece_content:devil_fruit/suna_suna_no_mi.json",
+  "passives": [],
+  "paths": [
+    {
+      "skills": [
+        "one_piece_content:spyglass",
+        "one_piece_content:apple",
+        "one_piece_content:sweet_berries",
+        "one_piece_content:stone_sword"
+      ]
+    },
+    {
+      "skills": [
+        "one_piece_content:sponge",
+        "one_piece_content:saddle",
+        "one_piece_content:beehive",
+        "one_piece_content:diamond_sword"
+      ]
+    },
+    {
+      "skills": [
+        "one_piece_content:stone_hoe",
+        "one_piece_content:diamond_shovel",
+        "one_piece_content:acacia_hanging_sign",
+        "one_piece_content:armadillo_spawn_egg"
+      ]
+    },
+    {
+      "skills": [
+        "one_piece_content:gold_ore",
+        "one_piece_content:green_glazed_terracotta",
+        "one_piece_content:green_dye",
+        "one_piece_content:cherry_leaves"
+      ]
+    },
+    {
+      "skills": [
+        "one_piece_content:cooked_rabbit",
+        "one_piece_content:creeper_banner_pattern",
+        "one_piece_content:cut_red_sandstone",
+        "one_piece_content:bubble_coral_block"
+      ]
+    }
+  ]
+}

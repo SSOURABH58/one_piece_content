@@ -1,0 +1,31 @@
+{
+	"schemaVersion": 1,
+	"id": "one_piece_content",
+	"version": "${version}",
+	"name": "One Piece Content (Server)",
+	"description": "Server-side part of One Piece RPG. Contains gameplay logic, networking, and data generators.",
+	"authors": [
+		"Me!"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/one_piece_content/contenticon.png",
+	"environment": "server",
+	"entrypoints": {
+		"server": [
+			"de.one_piece_content.ExampleMod"
+		],
+		"fabric-datagen": [
+			"de.one_piece_content.ExampleDatagen"
+		]
+	},
+	"depends": {
+		"fabricloader": ">=0.17.2",
+		"minecraft": "~1.21.1",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}

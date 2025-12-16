@@ -1,0 +1,35 @@
+{
+  "cost": 1,
+  "description": "Channels a fast, focused dash for 1 second, moving 5 blocks forward and slashing any target in the path",
+  "icon": {
+    "type": "texture",
+    "data": {
+      "texture": "one_piece_content:textures/spell/shishi_sonson.png"
+    }
+  },
+  "required_exclusions": 1,
+  "required_points": 0,
+  "required_skills": 1,
+  "required_spent_points": 0,
+  "rewards": [
+    {
+      "type": "one_piece_api:spell",
+      "data": {
+        "containers": [
+          {
+            "content": "MAGIC",
+            "is_proxy": true,
+            "max_spell_count": 0,
+            "pool": "",
+            "slot": "",
+            "spell_ids": [
+              "one_piece_content:shishi_sonson"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "size": 1.0,
+  "title": "Unlock ShiShi Sonson"
+}

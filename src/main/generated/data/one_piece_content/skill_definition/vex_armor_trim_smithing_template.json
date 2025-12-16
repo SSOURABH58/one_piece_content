@@ -1,0 +1,17 @@
+{
+  "cost": 1,
+  "description": "Smithing Template description text",
+  "icon": {
+    "type": "item",
+    "data": {
+      "item": "minecraft:vex_armor_trim_smithing_template"
+    }
+  },
+  "required_exclusions": 1,
+  "required_points": 0,
+  "required_skills": 1,
+  "required_spent_points": 0,
+  "rewards": [],
+  "size": 1.0,
+  "title": "Smithing Template"
+}

@@ -1,0 +1,35 @@
+{
+  "cost": 1,
+  "description": "Reduces the cooldown of Sandstorm by {cooldown_duration_deduct} sec.",
+  "icon": {
+    "type": "texture",
+    "data": {
+      "texture": "one_piece_content:textures/spell/sandstorm_modifier_1.png"
+    }
+  },
+  "required_exclusions": 1,
+  "required_points": 0,
+  "required_skills": 1,
+  "required_spent_points": 0,
+  "rewards": [
+    {
+      "type": "one_piece_api:spell",
+      "data": {
+        "containers": [
+          {
+            "content": "MAGIC",
+            "is_proxy": true,
+            "max_spell_count": 0,
+            "pool": "",
+            "slot": "",
+            "spell_ids": [
+              "one_piece_content:sandstorm_modifier_1"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "size": 1.0,
+  "title": "Arcane Endurance"
+}

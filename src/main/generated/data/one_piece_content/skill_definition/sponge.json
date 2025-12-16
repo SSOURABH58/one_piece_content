@@ -1,0 +1,17 @@
+{
+  "cost": 1,
+  "description": "Sponge description text",
+  "icon": {
+    "type": "item",
+    "data": {
+      "item": "minecraft:sponge"
+    }
+  },
+  "required_exclusions": 1,
+  "required_points": 0,
+  "required_skills": 1,
+  "required_spent_points": 0,
+  "rewards": [],
+  "size": 1.0,
+  "title": "Sponge"
+}
