@@ -149,3 +149,58 @@ publishing {
         // retrieving dependencies.
     }
 }
+
+tasks.register<Copy>("buildResourcePack") {
+    description = "Build a Minecraft resource pack from assets folders"
+    group = "build"
+
+    val packDir = layout.buildDirectory.dir("resourcepack/pack")
+    val assetsDir = packDir.map { it.dir("assets") }
+
+    val generatedAssets = file("src/main/generated/assets")
+    val resourcesAssets = file("src/main/resources/assets")
+
+    // Copy from generated folder
+    if (generatedAssets.exists()) {
+        from(generatedAssets)
+        into(assetsDir)
+    }
+
+    // Copy from resources folder (overwrites duplicates from generated)
+    if (resourcesAssets.exists()) {
+        from(resourcesAssets)
+        into(assetsDir)
+    }
+
+    doLast {
+        // Create pack.mcmeta
+        val packMeta = packDir.get().asFile.resolve("pack.mcmeta")
+        packMeta.writeText("""
+            {
+              "pack": {
+                "pack_format": 17,
+                "description": "One Piece Content Resource Pack"
+              }
+            }
+        """.trimIndent())
+
+        println("✓ Resource pack directory created at: ${packDir.get().asFile}")
+    }
+}
+
+tasks.register<Zip>("buildResourcePackZip") {
+    description = "Build and zip the Minecraft resource pack"
+    group = "build"
+    dependsOn("buildResourcePack")
+
+    val packDir = layout.buildDirectory.dir("resourcepack/pack").get().asFile
+
+    from(packDir)
+    archiveFileName.set("pack.zip")
+    destinationDirectory.set(layout.buildDirectory.dir("resourcepack"))
+
+    doLast {
+        println("✓ Resource pack created successfully!")
+        println("📦 Output: ${destinationDirectory.get().asFile}/pack.zip")
+    }
+}
