@@ -1,6 +1,48 @@
 {
   "school": "spell_power:physical_melee",
-  "range": 0.0,
+  "range": 8.0,
   "tier": 1,
-  "active": {}
+  "active": {
+    "cast": {
+      "duration": 1.0,
+      "animation": "animation.suna.sand_spike",
+      "sound": {
+        "id": "spell_engine:generic_fire_casting"
+      }
+    }
+  },
+  "release": {
+    "animation": "spell_engine:two_handed_slam_release",
+    "sound": {
+      "id": "minecraft:entity.player.attack.strong"
+    }
+  },
+  "target": {
+    "type": "AIM",
+    "aim": {}
+  },
+  "deliver": {
+    "type": "CUSTOM",
+    "custom": {
+      "handler": "one_piece_content:sand_spikes"
+    }
+  },
+  "impacts": [
+    {
+      "action": {
+        "type": "DAMAGE",
+        "damage": {
+          "spell_power_coefficient": 0.0,
+          "knockback": 0.0
+        }
+      }
+    }
+  ],
+  "cost": {
+    "exhaust": 1.0,
+    "cooldown": {
+      "duration": 12.0
+    },
+    "stamina": 20.0
+  }
 }

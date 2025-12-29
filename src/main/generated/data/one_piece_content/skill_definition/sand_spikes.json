@@ -1,6 +1,6 @@
 {
   "cost": 1,
-  "description": "Sand Spikes Description",
+  "description": "The ground trembles, then massive sand spikes erupt to impale the target.",
   "icon": {
     "type": "texture",
     "data": {

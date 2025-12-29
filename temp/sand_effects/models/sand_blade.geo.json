@@ -1,0 +1,85 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.suna_suna_no_mi",
+				"texture_width": 288,
+				"texture_height": 288,
+				"visible_bounds_width": 7,
+				"visible_bounds_height": 2.5,
+				"visible_bounds_offset": [0, 0.75, 0]
+			},
+			"bones": [
+				{
+					"name": "sand_blade",
+					"pivot": [43, 10, -26]
+				},
+				{
+					"name": "slash_1",
+					"parent": "sand_blade",
+					"pivot": [7, 19, -26],
+					"cubes": [
+						{"origin": [-29, 19, -44], "size": [72, 0, 36], "uv": [-36, 0]}
+					]
+				},
+				{
+					"name": "slash_2",
+					"parent": "sand_blade",
+					"pivot": [7, 19, -26],
+					"cubes": [
+						{"origin": [-29, 19, -44], "size": [72, 0, 36], "uv": [-36, 36]}
+					]
+				},
+				{
+					"name": "slash_3",
+					"parent": "sand_blade",
+					"pivot": [7, 19, -26],
+					"cubes": [
+						{"origin": [-29, 19, -44], "size": [72, 0, 36], "uv": [-36, 72]}
+					]
+				},
+				{
+					"name": "slash_4",
+					"parent": "sand_blade",
+					"pivot": [7, 19, -26],
+					"cubes": [
+						{"origin": [-29, 19, -44], "size": [72, 0, 36], "uv": [-36, 108]}
+					]
+				},
+				{
+					"name": "slash_5",
+					"parent": "sand_blade",
+					"pivot": [7, 19, -26],
+					"cubes": [
+						{"origin": [-29, 19, -44], "size": [72, 0, 36], "uv": [-36, 144]}
+					]
+				},
+				{
+					"name": "slash_6",
+					"parent": "sand_blade",
+					"pivot": [7, 19, -26],
+					"cubes": [
+						{"origin": [-29, 19, -44], "size": [72, 0, 36], "uv": [-36, 180]}
+					]
+				},
+				{
+					"name": "slash_7",
+					"parent": "sand_blade",
+					"pivot": [7, 19, -26],
+					"cubes": [
+						{"origin": [-29, 19, -44], "size": [72, 0, 36], "uv": [-36, 216]}
+					]
+				},
+				{
+					"name": "slash_8",
+					"parent": "sand_blade",
+					"pivot": [7, 19, -26],
+					"cubes": [
+						{"origin": [-29, 19, -44], "size": [72, 0, 36], "uv": [-36, 252]}
+					]
+				}
+			]
+		}
+	]
+}

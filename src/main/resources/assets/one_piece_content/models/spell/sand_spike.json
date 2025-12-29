@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "one_piece_content:spell/sand_spike"
+  }
+}
