@@ -23,6 +23,7 @@ repositories {
     maven { name = "Ladysnake Mods"; url = uri("https://maven.ladysnake.org/releases") }
     maven { name = "KosmX"; url = uri("https://maven.kosmx.dev/") }
     maven { name = "Shedaniel"; url = uri("https://maven.shedaniel.me/") }
+    maven { name = "GeckoLib"; url = uri("https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/") }
 
 
 }
@@ -56,6 +57,7 @@ dependencies {
     // Development/testing mods
     modRuntimeOnly("curse.maven:amecs-reborn-1233121:6487881")
     modRuntimeOnly("curse.maven:modmenu-308702:5810603")
+    modImplementation("software.bernie.geckolib:geckolib-fabric-1.21.1:4.7.1")
 }
 
 

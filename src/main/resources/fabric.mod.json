@@ -13,13 +13,16 @@
 	},
 	"license": "CC0-1.0",
 	"icon": "assets/one_piece_content/contenticon.png",
-	"environment": "server",
+	"environment": "*",
 	"entrypoints": {
-		"server": [
+		"main": [
 			"de.one_piece_content.ExampleMod"
 		],
 		"fabric-datagen": [
 			"de.one_piece_content.ExampleDatagen"
+		],
+		"client": [
+			"de.one_piece_content.client.ContentClient"
 		]
 	},
 	"depends": {

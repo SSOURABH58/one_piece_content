@@ -293,7 +293,7 @@ public class ExampleSpells {
                                 .tier(1)
                                 .casting(cast -> cast
                                                 .duration(1.0f)
-                                                .animation("animation.suna.sand_spike")
+                                                .animation("one_piece_api:animation.suna.sand_spike")
                                                 .sound(SpellEngineSounds.GENERIC_FIRE_CASTING.id()))
                                 .release(release -> release
                                                 .animation("spell_engine:two_handed_slam_release")

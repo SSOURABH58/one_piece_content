@@ -157,37 +157,17 @@ public class SpellHandler {
                                 center.getX(), center.getY() + 0.1, center.getZ(),
                                 20, 1.0, 0.1, 1.0, 0.1);
 
-                // 3. Schedule 3 Waves of Spikes using Evoker Fangs with increasing warmup
-                // Wave 1: 4 seconds (80 ticks)
-                // Wave 2: 6 seconds (120 ticks)
-                // Wave 3: 8 seconds (160 ticks)
-                // Note: 20 ticks = 1 second.
-                // Start after 4 seconds = 80 ticks.
-                // Interval 2 seconds = 40 ticks.
-                // So delays: 80, 120, 160.
-                int[] delays = { 80, 120, 160 };
+                ExampleMod.LOGGER.info("Spawning Sand Spike at: " + center);
 
-                for (int delay : delays) {
-                        spawnSpikeWave(world, center, playerEntity, delay);
-                }
+                // 3. Spawn Custom Sand Spike Entity
+                var sandSpike = new de.one_piece_content.entity.SandSpikeEntity(
+                                de.one_piece_content.entity.OnePieceEntities.SAND_SPIKE, world);
+                sandSpike.refreshPositionAndAngles(center.getX(), center.getY(), center.getZ(), playerEntity.getYaw(),
+                                0);
+                boolean spawned = world.spawnEntity(sandSpike);
+                ExampleMod.LOGGER.info("Sand Spike Spawned: " + spawned + ", Entity ID: " + sandSpike.getId());
 
                 return true;
         }
 
-        private static void spawnSpikeWave(World world, Vec3d center, PlayerEntity owner, int warmup) {
-                // Spawn a cluster of fangs to represent a "massive spike"
-                // Center fang
-                world.spawnEntity(new net.minecraft.entity.mob.EvokerFangsEntity(world, center.getX(), center.getY(),
-                                center.getZ(), 0, warmup, owner));
-
-                // Surrounding fangs for girth
-                for (int i = 0; i < 6; i++) {
-                        float angle = (float) (i * Math.PI * 2 / 6);
-                        double x = center.getX() + Math.cos(angle) * 0.8;
-                        double z = center.getZ() + Math.sin(angle) * 0.8;
-                        world.spawnEntity(
-                                        new net.minecraft.entity.mob.EvokerFangsEntity(world, x, center.getY(), z, 0,
-                                                        warmup, owner));
-                }
-        }
 }
