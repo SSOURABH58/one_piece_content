@@ -164,6 +164,7 @@ public class SpellHandler {
                                 de.one_piece_content.entity.OnePieceEntities.SAND_SPIKE, world);
                 sandSpike.refreshPositionAndAngles(center.getX(), center.getY(), center.getZ(), playerEntity.getYaw(),
                                 0);
+                sandSpike.setOwner(playerEntity);
                 boolean spawned = world.spawnEntity(sandSpike);
                 ExampleMod.LOGGER.info("Sand Spike Spawned: " + spawned + ", Entity ID: " + sandSpike.getId());
 

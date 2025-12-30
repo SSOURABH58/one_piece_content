@@ -18,6 +18,7 @@ public class ExampleMod implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		LOGGER.info("Example Content initializing");
+		de.one_piece_content.config.SandSpikeConfig.load();
 		LOGGER.info("Registering Sounds...");
 		// MySounds.register();
 		LOGGER.info("Registering SpellHandlers...");

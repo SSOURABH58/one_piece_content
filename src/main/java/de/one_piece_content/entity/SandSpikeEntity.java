@@ -15,12 +15,22 @@ import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 
+import de.one_piece_content.config.SandSpikeConfig;
+
 public class SandSpikeEntity extends Entity implements GeoEntity {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-    private int lifetime = 40; // 2 seconds
+    private int lifetime = SandSpikeConfig.lifeTimeTicks;
 
     public SandSpikeEntity(EntityType<?> type, World world) {
         super(type, world);
+    }
+
+    private net.minecraft.entity.Entity owner;
+    private boolean hasDamaged = false;
+    private int damageDelay = 10; // Delay damage slightly to match animation
+
+    public void setOwner(net.minecraft.entity.Entity owner) {
+        this.owner = owner;
     }
 
     @Override
@@ -29,6 +39,26 @@ public class SandSpikeEntity extends Entity implements GeoEntity {
         if (!this.getWorld().isClient) {
             if (this.age > lifetime) {
                 this.discard();
+            }
+
+            if (this.age >= damageDelay && !hasDamaged) {
+                java.util.List<net.minecraft.entity.LivingEntity> targets = this.getWorld().getEntitiesByClass(
+                        net.minecraft.entity.LivingEntity.class,
+                        this.getBoundingBox().expand(0.5), // Slightly larger hit area
+                        e -> e != owner && e.isAlive());
+
+                for (net.minecraft.entity.LivingEntity target : targets) {
+                    net.minecraft.entity.damage.DamageSource source;
+                    if (owner instanceof net.minecraft.entity.player.PlayerEntity player) {
+                        source = this.getWorld().getDamageSources().playerAttack(player);
+                    } else if (owner instanceof net.minecraft.entity.LivingEntity livingOwner) {
+                        source = this.getWorld().getDamageSources().mobAttack(livingOwner);
+                    } else {
+                        source = this.getWorld().getDamageSources().magic();
+                    }
+                    target.damage(source, SandSpikeConfig.damage);
+                }
+                hasDamaged = true;
             }
         }
     }

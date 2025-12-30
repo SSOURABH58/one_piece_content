@@ -5,6 +5,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import de.one_piece_content.config.SandSpikeConfig;
 import net.minecraft.util.Identifier;
 
 public class OnePieceEntities {
@@ -16,7 +17,7 @@ public class OnePieceEntities {
                 Registries.ENTITY_TYPE,
                 ExampleMod.id("sand_spike"),
                 EntityType.Builder.create(SandSpikeEntity::new, SpawnGroup.MISC)
-                        .dimensions(1f, 2f)
+                        .dimensions(SandSpikeConfig.dimensionsWidth, SandSpikeConfig.dimensionsHeight)
                         .build());
     }
 }

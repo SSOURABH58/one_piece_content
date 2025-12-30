@@ -4,8 +4,8 @@
   "tier": 1,
   "active": {
     "cast": {
-      "duration": 1.0,
-      "animation": "one_piece_api:animation.suna.sand_spike",
+      "duration": 2.25,
+      "animation": "one_piece_content:animation.suna.sand_spike",
       "sound": {
         "id": "spell_engine:generic_fire_casting"
       }
