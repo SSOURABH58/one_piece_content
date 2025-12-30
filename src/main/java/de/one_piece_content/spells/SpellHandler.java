@@ -168,6 +168,9 @@ public class SpellHandler {
                 boolean spawned = world.spawnEntity(sandSpike);
                 ExampleMod.LOGGER.info("Sand Spike Spawned: " + spawned + ", Entity ID: " + sandSpike.getId());
 
+                // Trigger animation on client for caster and observers
+                de.one_piece_content.network.ContentNetworking.sendToTrackersAndSelf(playerEntity);
+
                 return true;
         }
 

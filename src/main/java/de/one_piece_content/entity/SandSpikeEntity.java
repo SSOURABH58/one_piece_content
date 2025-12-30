@@ -14,6 +14,9 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 
 import de.one_piece_content.config.SandSpikeConfig;
 
@@ -21,16 +24,30 @@ public class SandSpikeEntity extends Entity implements GeoEntity {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     private int lifetime = SandSpikeConfig.lifeTimeTicks;
 
+    // Track Owner ID to sync with Client for Animation triggering
+    private static final TrackedData<Integer> OWNER_ID = DataTracker.registerData(SandSpikeEntity.class,
+            TrackedDataHandlerRegistry.INTEGER);
+
     public SandSpikeEntity(EntityType<?> type, World world) {
         super(type, world);
     }
 
     private net.minecraft.entity.Entity owner;
     private boolean hasDamaged = false;
-    private int damageDelay = 10; // Delay damage slightly to match animation
+    private int damageDelay = 10;
 
     public void setOwner(net.minecraft.entity.Entity owner) {
         this.owner = owner;
+        this.dataTracker.set(OWNER_ID, owner.getId());
+    }
+
+    public int getOwnerId() {
+        return this.dataTracker.get(OWNER_ID);
+    }
+
+    @Override
+    protected void initDataTracker(DataTracker.Builder builder) {
+        builder.add(OWNER_ID, -1);
     }
 
     @Override
@@ -44,7 +61,7 @@ public class SandSpikeEntity extends Entity implements GeoEntity {
             if (this.age >= damageDelay && !hasDamaged) {
                 java.util.List<net.minecraft.entity.LivingEntity> targets = this.getWorld().getEntitiesByClass(
                         net.minecraft.entity.LivingEntity.class,
-                        this.getBoundingBox().expand(0.5), // Slightly larger hit area
+                        this.getBoundingBox().expand(0.5),
                         e -> e != owner && e.isAlive());
 
                 for (net.minecraft.entity.LivingEntity target : targets) {
@@ -73,10 +90,6 @@ public class SandSpikeEntity extends Entity implements GeoEntity {
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return this.cache;
-    }
-
-    @Override
-    protected void initDataTracker(net.minecraft.entity.data.DataTracker.Builder builder) {
     }
 
     @Override

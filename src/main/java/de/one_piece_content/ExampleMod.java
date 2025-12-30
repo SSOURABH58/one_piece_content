@@ -25,6 +25,7 @@ public class ExampleMod implements ModInitializer {
 		SpellHandler.register();
 		LOGGER.info("Registering Entities...");
 		OnePieceEntities.register();
+		de.one_piece_content.network.ContentNetworking.init();
 		LOGGER.info("Initialization Complete.");
 
 		PassiveAbilityRegistry.register(new PassiveAbility.Builder(id("master_of_the_seas"))

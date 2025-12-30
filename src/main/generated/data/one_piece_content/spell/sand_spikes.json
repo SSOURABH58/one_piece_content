@@ -5,7 +5,6 @@
   "active": {
     "cast": {
       "duration": 2.25,
-      "animation": "one_piece_content:animation.suna.sand_spike",
       "sound": {
         "id": "spell_engine:generic_fire_casting"
       }

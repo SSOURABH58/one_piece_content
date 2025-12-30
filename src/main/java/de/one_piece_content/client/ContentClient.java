@@ -15,5 +15,8 @@ public class ContentClient implements ClientModInitializer {
                     System.out.println("Registering SandSpikeRenderer");
                     return new SandSpikeRenderer(context);
                 });
+
+        AnimationBridge.init();
+        de.one_piece_content.network.ContentNetworking.initClient();
     }
 }

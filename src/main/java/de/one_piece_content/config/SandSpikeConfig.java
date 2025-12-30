@@ -14,19 +14,32 @@ public class SandSpikeConfig {
     private static final java.nio.file.Path CONFIG_PATH = net.fabricmc.loader.api.FabricLoader.getInstance()
             .getConfigDir().resolve("one_piece_content.json");
 
+    // DTO for loading/saving
+    private static class ConfigData {
+        public float dimensionsWidth = 1f;
+        public float dimensionsHeight = 2f;
+        public float scale = 2.0f;
+        public int lifeTimeTicks = 40;
+        public float damage = 10.0f;
+        public double spawnOffsetDistance = 2.0;
+    }
+
     public static void load() {
         if (java.nio.file.Files.exists(CONFIG_PATH)) {
             try (java.io.Reader reader = java.nio.file.Files.newBufferedReader(CONFIG_PATH)) {
-                SandSpikeConfig config = GSON.fromJson(reader, SandSpikeConfig.class);
-                dimensionsWidth = config.dimensionsWidth;
-                dimensionsHeight = config.dimensionsHeight;
-                scale = config.scale;
-                lifeTimeTicks = config.lifeTimeTicks;
-                damage = config.damage;
-                spawnOffsetDistance = config.spawnOffsetDistance;
+                ConfigData data = GSON.fromJson(reader, ConfigData.class);
+                if (data != null) {
+                    dimensionsWidth = data.dimensionsWidth;
+                    dimensionsHeight = data.dimensionsHeight;
+                    scale = data.scale;
+                    lifeTimeTicks = data.lifeTimeTicks;
+                    damage = data.damage;
+                    spawnOffsetDistance = data.spawnOffsetDistance;
+                }
                 de.one_piece_content.ExampleMod.LOGGER.info("Loaded config from file.");
-            } catch (java.io.IOException e) {
-                de.one_piece_content.ExampleMod.LOGGER.error("Failed to load config", e);
+            } catch (Exception e) {
+                de.one_piece_content.ExampleMod.LOGGER.error("Failed to load config, resetting to default.", e);
+                save(); // Overwrite corrupted file with defaults
             }
         } else {
             save(); // Create default
@@ -35,24 +48,18 @@ public class SandSpikeConfig {
 
     public static void save() {
         try (java.io.Writer writer = java.nio.file.Files.newBufferedWriter(CONFIG_PATH)) {
-            GSON.toJson(new SandSpikeConfig(), writer); // This will save static fields if instance is used? No, GSON
-                                                        // doesn't serialize static fields by default on instance.
-            // Actually, we need a POJO to save/load cleanly or register type adapter.
-            // Simplified: We will construct a map or simple object to save.
-            java.util.Map<String, Object> map = new java.util.LinkedHashMap<>();
-            map.put("dimensionsWidth", dimensionsWidth);
-            map.put("dimensionsHeight", dimensionsHeight);
-            map.put("scale", scale);
-            map.put("lifeTimeTicks", lifeTimeTicks);
-            map.put("damage", damage);
-            map.put("spawnOffsetDistance", spawnOffsetDistance);
-            GSON.toJson(map, writer);
-            de.one_piece_content.ExampleMod.LOGGER.info("Saved default config.");
+            ConfigData data = new ConfigData();
+            data.dimensionsWidth = dimensionsWidth;
+            data.dimensionsHeight = dimensionsHeight;
+            data.scale = scale;
+            data.lifeTimeTicks = lifeTimeTicks;
+            data.damage = damage;
+            data.spawnOffsetDistance = spawnOffsetDistance;
+
+            GSON.toJson(data, writer);
+            de.one_piece_content.ExampleMod.LOGGER.info("Saved config.");
         } catch (java.io.IOException e) {
             de.one_piece_content.ExampleMod.LOGGER.error("Failed to save config", e);
         }
     }
-
-    // Static block to auto-load on class access? Or call from ModInit.
-    // Better to call from ModInit.
 }
