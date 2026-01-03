@@ -139,7 +139,10 @@ public class AnimationBridge {
     }
 
     public static void triggerSandSpikeAnimation(int duration) {
-        castingTimer = duration;
+        // Only trigger if no animation is currently playing
+        if (castingTimer <= 0) {
+            castingTimer = duration;
+        }
     }
 
     private static void scanClass(Class<?> cls) {
@@ -196,8 +199,22 @@ public class AnimationBridge {
                 Method getRenderer = onePlayer.getClass().getMethod("getRenderer");
                 Object renderer = getRenderer.invoke(onePlayer);
                 if (renderer != null) {
-                    Method setCasting = renderer.getClass().getMethod("setCastingSandSpike", boolean.class);
-                    setCasting.invoke(renderer, active);
+                    if (active) {
+                        try {
+                            Method trigger = renderer.getClass().getMethod("triggerSandSpike");
+                            trigger.invoke(renderer);
+                        } catch (NoSuchMethodException ignored) {
+                            // triggerSandSpike might not exist on older versions, fallback or ignore
+                        }
+                    }
+
+                    // Also invoke setCastingSandSpike if it exists, for backwards compatibility or
+                    // state tracking
+                    try {
+                        Method setCasting = renderer.getClass().getMethod("setCastingSandSpike", boolean.class);
+                        setCasting.invoke(renderer, active);
+                    } catch (NoSuchMethodException ignored) {
+                    }
                 }
             }
         } catch (Exception e) {

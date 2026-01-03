@@ -2,6 +2,7 @@
     "format_version": "1.8.0",
     "animations": {
         "animation.suna.sand_spike": {
+            "loop": "hold_on_last_frame",
             "animation_length": 2.2917,
             "bones": {
                 "AllBody": {

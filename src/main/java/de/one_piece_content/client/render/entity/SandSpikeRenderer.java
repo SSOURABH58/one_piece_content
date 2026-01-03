@@ -9,23 +9,25 @@ public class SandSpikeRenderer extends GeoEntityRenderer<SandSpikeEntity> {
         super(renderManager, new SandSpikeModel());
     }
 
+    private static final java.util.Set<Integer> triggeredIds = new java.util.HashSet<>();
+
     @Override
     public void render(SandSpikeEntity entity, float entityYaw, float partialTick,
             net.minecraft.client.util.math.MatrixStack poseStack,
             net.minecraft.client.render.VertexConsumerProvider bufferSource, int packedLight) {
 
-        // Trigger Player Animation if this spike belongs to the local player
-        // Check for first 20 ticks to allow sync-up
-        // Check for first 20 ticks to allow sync-up
-        if (entity.age < 100) {
+        // Trigger animation exactly once per entity instance
+        if (!triggeredIds.contains(entity.getId())) {
             net.minecraft.client.MinecraftClient client = net.minecraft.client.MinecraftClient.getInstance();
-            if (client.player != null) {
-                System.out.println("Renderer: Spike Age: " + entity.age + ", OwnerID: " + entity.getOwnerId()
-                        + ", PlayerID: " + client.player.getId());
-                if (entity.getOwnerId() == client.player.getId()) {
-                    System.out.println("Renderer: MATCH! Triggering Animation.");
-                    de.one_piece_content.client.AnimationBridge.triggerSandSpikeAnimation(20);
-                }
+            if (client.player != null && entity.getOwnerId() == client.player.getId()) {
+                System.out.println("Renderer: MATCH! Triggering Animation. Age: " + entity.age);
+                // 2.29s ~= 46 ticks
+                de.one_piece_content.client.AnimationBridge.triggerSandSpikeAnimation(46);
+                triggeredIds.add(entity.getId());
+
+                // Cleanup old IDs occasionally (simple heuristic)
+                if (triggeredIds.size() > 100)
+                    triggeredIds.clear();
             }
         }
 
