@@ -134,13 +134,28 @@ public class SpellHandler {
                 if (!(world instanceof ServerWorld serverWorld))
                         return false;
 
-                // 1. Calculate Target Position: 2 blocks in front of the caster
-                Vec3d dir = playerEntity.getRotationVec(1.0f).normalize();
-                Vec3d center = playerEntity.getPos().add(dir.x * 2, 0, dir.z * 2);
+                // 1. Use Target Position from Spell Engine (Raycast result)
+                Vec3d center;
+                if (vec3d != null) {
+                        center = vec3d;
+                } else {
+                        // Fallback to player position if no target
+                        center = playerEntity.getPos();
+                }
 
-                // Adjust Y to ground level
+                // Adjust Y to ground level if needed (though raycast usually hits block
+                // surface)
+                // If it was an entity hit, vec3d is entity pos.
+                // We'll trust vec3d is correct for now, or ensure it's on ground?
+                // The user wants 'on the ground'.
+                // Recalculating Y via heightmap ensures it's ON the ground even if aimed at
+                // air/side.
+                // But raycast should handle it. Let's stick to heightmap safe-guard.
                 double y = world.getTopY(net.minecraft.world.Heightmap.Type.MOTION_BLOCKING, (int) center.x,
                                 (int) center.z);
+                // Only snap to ground if the target Y is significantly different (e.g. aimed at
+                // sky)
+                // Actually, for "Sand Spikes", it implies ground eruption.
                 center = new Vec3d(center.x, y, center.z);
 
                 // 2. Play initial "Rumbling" sounds and particles
