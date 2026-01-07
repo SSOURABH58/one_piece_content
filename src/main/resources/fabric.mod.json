@@ -1,7 +1,7 @@
 {
 	"schemaVersion": 1,
 	"id": "one_piece_content",
-	"version": "${version}",
+	"version": "1.0.1",
 	"name": "One Piece Content (Server)",
 	"description": "Server-side part of One Piece RPG. Contains gameplay logic, networking, and data generators.",
 	"authors": [

@@ -289,7 +289,7 @@ public class ExampleSpells {
         private static SpellConfig sand_spikes() {
                 var spell = SpellFactory.active()
                                 .school(SpellSchools.getSchool("physical_melee"))
-                                .range(12f)
+                                .range(32.0f)
                                 .tier(1)
                                 .casting(cast -> cast
                                                 .duration(1.0f)
@@ -352,7 +352,7 @@ public class ExampleSpells {
 
                         var spell = SpellFactory.active()
                                         .school(SpellSchools.getSchool("physical_melee"))
-                                        .range(0f)
+                                        .range(32.0f)
                                         .tier(1)
                                         .build();
                         var entry = new SpellConfig(spell, title, description);

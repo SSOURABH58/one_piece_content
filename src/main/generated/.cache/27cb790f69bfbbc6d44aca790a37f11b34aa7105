@@ -1,11 +1,11 @@
-// 1.21.1	2025-12-29T16:29:16.103337	One Piece Content (Server)/Spell Generator
-689ff5599374e33708a81c7489b30e505386fa3f data/one_piece_content/spell/sand_hand.json
-fcaf51c0cebe176b886818a735beeaf032e86d2b data/one_piece_content/spell/sandstorm_modifier_1.json
+// 1.21.1	2026-01-07T18:43:00.036655	One Piece Content (Server)/Spell Generator
 aaac493ea9604af9f45b55edbd4b936c6eba3b2a data/one_piece_content/spell/sandstorm.json
-edf6b1ed8bcf20098c2cab455dd620e1435fb499 data/one_piece_content/spell/yakkodori.json
-689ff5599374e33708a81c7489b30e505386fa3f data/one_piece_content/spell/sand_drain.json
-a398fed9ec7640d12b6cf2bcc20ece9f264386ba data/one_piece_content/spell/sand_spikes.json
 7109d2d46855e87681122d64adcf6d93f2ef6fd0 data/one_piece_content/spell/shishi_sonson.json
-689ff5599374e33708a81c7489b30e505386fa3f data/one_piece_content/spell/quicksand.json
-689ff5599374e33708a81c7489b30e505386fa3f data/one_piece_content/spell/dummy.json
-689ff5599374e33708a81c7489b30e505386fa3f data/one_piece_content/spell/sand_blade.json
+fa2c85c034ecbc2aa17e0fb857968af75d40d168 data/one_piece_content/spell/sand_hand.json
+fa2c85c034ecbc2aa17e0fb857968af75d40d168 data/one_piece_content/spell/sand_drain.json
+edf6b1ed8bcf20098c2cab455dd620e1435fb499 data/one_piece_content/spell/yakkodori.json
+fa2c85c034ecbc2aa17e0fb857968af75d40d168 data/one_piece_content/spell/dummy.json
+fa2c85c034ecbc2aa17e0fb857968af75d40d168 data/one_piece_content/spell/sand_blade.json
+4018d935d3eed0cb896f9bbaf3af1f0984732429 data/one_piece_content/spell/sand_spikes.json
+fcaf51c0cebe176b886818a735beeaf032e86d2b data/one_piece_content/spell/sandstorm_modifier_1.json
+fa2c85c034ecbc2aa17e0fb857968af75d40d168 data/one_piece_content/spell/quicksand.json

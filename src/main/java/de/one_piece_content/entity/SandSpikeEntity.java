@@ -34,8 +34,10 @@ public class SandSpikeEntity extends Entity implements GeoEntity {
 
     // Timing Constants (in ticks)
     private static final int INITIAL_DELAY = 40; // 2 seconds trembling
-    private static final int WAVE_INTERVAL = 40; // 2 seconds between spikes
-    private static final int DAMAGE_DELAY = 17; // 0.85s
+    // Cycle: Animation (46 ticks) + Wait = 90 ticks
+    private static final int WAVE_INTERVAL = 90;
+    private static final int ANIMATION_DURATION = 47; // 46 ticks animation + 1 tick buffer
+    private static final int DAMAGE_DELAY = 17; // 0.85s point
     private static final int TOTAL_WAVES = 3;
 
     // Attributes
@@ -46,8 +48,16 @@ public class SandSpikeEntity extends Entity implements GeoEntity {
     private static final TrackedData<Integer> OWNER_ID = DataTracker.registerData(SandSpikeEntity.class,
             TrackedDataHandlerRegistry.INTEGER);
 
+    // Animation Wave Counter (0 = Idle, 1, 2, 3... = Wave Start)
+    private static final TrackedData<Integer> WAVE_COUNTER = DataTracker.registerData(SandSpikeEntity.class,
+            TrackedDataHandlerRegistry.INTEGER);
+
     private Entity owner;
     private int currentWave = 0;
+
+    // Client-side tracking
+    private int lastRenderedWave = -1;
+    private int waveStartTick = 0;
 
     public SandSpikeEntity(EntityType<?> type, World world) {
         super(type, world);
@@ -64,6 +74,10 @@ public class SandSpikeEntity extends Entity implements GeoEntity {
         return this.dataTracker.get(OWNER_ID);
     }
 
+    public int getWaveCounter() {
+        return this.dataTracker.get(WAVE_COUNTER);
+    }
+
     public Entity getOwner() {
         if (owner == null && !this.getWorld().isClient) {
             owner = this.getWorld().getEntityById(this.dataTracker.get(OWNER_ID));
@@ -74,6 +88,7 @@ public class SandSpikeEntity extends Entity implements GeoEntity {
     @Override
     protected void initDataTracker(DataTracker.Builder builder) {
         builder.add(OWNER_ID, -1);
+        builder.add(WAVE_COUNTER, 0);
     }
 
     @Override
@@ -88,7 +103,7 @@ public class SandSpikeEntity extends Entity implements GeoEntity {
 
         // 1. Initial Phase: Trembling & Trail (Ticks 0-40)
         if (this.age < INITIAL_DELAY) {
-            // Trembling Sound & Particles at Target
+            // Trembling particles...
             if (this.age % 5 == 0) {
                 this.playSound(SoundEvents.BLOCK_SAND_BREAK, 1.0f, 0.5f);
                 ((ServerWorld) this.getWorld()).spawnParticles(
@@ -96,16 +111,11 @@ public class SandSpikeEntity extends Entity implements GeoEntity {
                         this.getX(), this.getY(), this.getZ(),
                         5, 0.5, 0.1, 0.5, 0.1);
             }
-
-            // Trail from Owner to Target (Simulate "blocks shifting underfoot" towards
-            // target)
+            // Trail logic
             Entity owner = getOwner();
             if (owner != null && this.age % 2 == 0) {
                 double progress = (double) this.age / INITIAL_DELAY;
-                Vec3d start = owner.getPos();
-                Vec3d end = this.getPos();
-                Vec3d current = start.lerp(end, progress);
-
+                Vec3d current = owner.getPos().lerp(this.getPos(), progress);
                 ((ServerWorld) this.getWorld()).spawnParticles(
                         new BlockStateParticleEffect(ParticleTypes.BLOCK, Blocks.SAND.getDefaultState()),
                         current.x, current.y + 0.1, current.z,
@@ -131,11 +141,10 @@ public class SandSpikeEntity extends Entity implements GeoEntity {
                     dealDamage();
                 }
 
-                // End of Wave (Tick 38)
-                // Hide spike just before next one starts to clear animation state
-                if (tickInWave == 38) {
+                // End of Animation (Tick 46) - Hide and Wait
+                if (tickInWave == ANIMATION_DURATION) {
+                    this.dataTracker.set(WAVE_COUNTER, 0); // Reset to 0 (Idle)
                     this.setInvisible(true);
-                    this.triggerAnim("controller", "stop");
                 }
             }
         } else if (relativeTick > (TOTAL_WAVES * WAVE_INTERVAL) + 10) {
@@ -145,13 +154,12 @@ public class SandSpikeEntity extends Entity implements GeoEntity {
     }
 
     private void triggerWave() {
+        // Increment wave count
         currentWave++;
 
-        // Show Entity
+        // Show Entity & Set Anim State
         this.setInvisible(false);
-
-        // Force Animation Restart
-        this.triggerAnim("controller", "erupt");
+        this.dataTracker.set(WAVE_COUNTER, currentWave); // 1, 2, 3...
 
         // Sound
         this.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE.value(), 0.5f, 0.5f + (currentWave * 0.1f));
@@ -169,6 +177,7 @@ public class SandSpikeEntity extends Entity implements GeoEntity {
     }
 
     private void dealDamage() {
+        // Damage logic...
         List<LivingEntity> targets = this.getWorld().getEntitiesByClass(
                 LivingEntity.class,
                 this.getBoundingBox().expand(DAMAGE_RADIUS, 2.0, DAMAGE_RADIUS),
@@ -196,13 +205,38 @@ public class SandSpikeEntity extends Entity implements GeoEntity {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        // Precise state-based control
         controllers.add(new AnimationController<>(this, "controller", 0, event -> {
-            // Default State: Stop (Invisible/Bind Pose)
+            int wave = this.getWaveCounter();
+
+            // If wave > 0, we play "start". The controller resets automatically if
+            // setAnimation is called?
+            // setAndContinue will NOT reset if it thinks it's the same animation.
+            // We need to detect "New Wave".
+
+            if (wave > 0) {
+                // 1. Detect Wave Start
+                if (wave != lastRenderedWave) {
+                    lastRenderedWave = wave;
+                    waveStartTick = this.age;
+                    event.getController().forceAnimationReset();
+                }
+
+                // 2. Client-Side Duration Cap
+                // Animation is exactly 46 ticks long. Stop immediately after to prevent
+                // holding/looping.
+                // Explicitly prevent looping by stopping exactly at animation end.
+                if (this.age - waveStartTick > 46) {
+                    return PlayState.STOP;
+                }
+
+                return event.setAndContinue(RawAnimation.begin().thenPlay("animation.sand_spike"));
+            }
+
+            // If wave == 0 (Idle wait), Stop.
+            lastRenderedWave = 0;
             return PlayState.STOP;
-        })
-                .triggerableAnim("erupt", RawAnimation.begin().thenPlay("animation.sand_spike"))
-                .triggerableAnim("stop", RawAnimation.begin().thenPlay("null_anim")) // Force reset
-        );
+        }));
     }
 
     @Override
@@ -212,18 +246,23 @@ public class SandSpikeEntity extends Entity implements GeoEntity {
 
     @Override
     protected void readCustomDataFromNbt(NbtCompound nbt) {
-        this.dataTracker.set(OWNER_ID, nbt.getInt("OwnerId"));
+        if (nbt.contains("OwnerId")) {
+            this.dataTracker.set(OWNER_ID, nbt.getInt("OwnerId"));
+        }
+        if (nbt.contains("WaveCounter")) {
+            this.dataTracker.set(WAVE_COUNTER, nbt.getInt("WaveCounter"));
+        }
         this.currentWave = nbt.getInt("Wave");
-        this.age = nbt.getInt("Age");
     }
 
     @Override
     protected void writeCustomDataToNbt(NbtCompound nbt) {
         nbt.putInt("OwnerId", this.dataTracker.get(OWNER_ID));
+        nbt.putInt("WaveCounter", this.dataTracker.get(WAVE_COUNTER));
         nbt.putInt("Wave", currentWave);
-        nbt.putInt("Age", this.age);
     }
 
+    // Packet method
     public Packet<ClientPlayPacketListener> createSpawnPacket() {
         return new EntitySpawnS2CPacket(this.getId(), this.getUuid(), this.getX(), this.getY(), this.getZ(),
                 this.getPitch(), this.getYaw(), this.getType(), 0, this.getVelocity(), this.getHeadYaw());

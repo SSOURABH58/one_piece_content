@@ -139,24 +139,24 @@ public class SpellHandler {
                 if (vec3d != null) {
                         center = vec3d;
                 } else {
-                        // Fallback to player position if no target
-                        center = playerEntity.getPos();
+                        // Fallback: 3 blocks in front
+                        Vec3d dir = playerEntity.getRotationVec(1.0F).normalize().multiply(3);
+                        center = playerEntity.getPos().add(dir.x, 0, dir.z);
                 }
 
-                // Adjust Y to ground level if needed (though raycast usually hits block
-                // surface)
-                // If it was an entity hit, vec3d is entity pos.
-                // We'll trust vec3d is correct for now, or ensure it's on ground?
-                // The user wants 'on the ground'.
-                // Recalculating Y via heightmap ensures it's ON the ground even if aimed at
-                // air/side.
-                // But raycast should handle it. Let's stick to heightmap safe-guard.
-                double y = world.getTopY(net.minecraft.world.Heightmap.Type.MOTION_BLOCKING, (int) center.x,
-                                (int) center.z);
-                // Only snap to ground if the target Y is significantly different (e.g. aimed at
-                // sky)
-                // Actually, for "Sand Spikes", it implies ground eruption.
-                center = new Vec3d(center.x, y, center.z);
+                // Ground Alignment Logic
+                // Use the raycast hit position directly to avoid scanning checks that might
+                // cause lag
+                int groundY = (int) Math.floor(center.y);
+
+                // If vec3d was null (fallback mode), perform a safe surface check
+                if (vec3d == null) {
+                        groundY = world.getTopY(net.minecraft.world.Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
+                                        (int) center.x, (int) center.z);
+                }
+
+                // Set center to the top of the found block
+                center = new Vec3d(center.x, groundY, center.z);
 
                 // 2. Play initial "Rumbling" sounds and particles
                 world.playSound(null, center.getX(), center.getY(), center.getZ(),

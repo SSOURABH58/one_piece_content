@@ -16,6 +16,12 @@ public class SandSpikeRenderer extends GeoEntityRenderer<SandSpikeEntity> {
             net.minecraft.client.util.math.MatrixStack poseStack,
             net.minecraft.client.render.VertexConsumerProvider bufferSource, int packedLight) {
 
+        // Strict Visibility: Only render if we are in an active wave (Wave > 0)
+        // This prevents "frozen rest pose" artifacts during the wait periods.
+        if (entity.getWaveCounter() == 0) {
+            return;
+        }
+
         // Trigger animation exactly once per entity instance
         if (!triggeredIds.contains(entity.getId())) {
             net.minecraft.client.MinecraftClient client = net.minecraft.client.MinecraftClient.getInstance();
@@ -32,8 +38,8 @@ public class SandSpikeRenderer extends GeoEntityRenderer<SandSpikeEntity> {
         }
 
         poseStack.push();
-        float scale = de.one_piece_content.config.SandSpikeConfig.scale;
-        poseStack.scale(scale, scale, scale);
+        // Removed manual scaling override (was 2.0x). Now renders at 1.0x native size.
+
         // Rotate to match entity facing
         poseStack.multiply(net.minecraft.util.math.RotationAxis.POSITIVE_Y.rotationDegrees(-entityYaw));
         super.render(entity, entityYaw, partialTick, poseStack, bufferSource, packedLight);
