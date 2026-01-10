@@ -14,6 +14,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.Box;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.spell_engine.api.spell.Spell;
@@ -145,11 +146,29 @@ public class SpellHandler {
                 }
 
                 // Ground Alignment Logic
-                // Use the raycast hit position directly to avoid scanning checks that might
-                // cause lag
-                int groundY = (int) Math.floor(center.y);
+                // Scan down from the target Y to find the nearest solid block (max 20 blocks
+                // down)
+                // This prevents floating spikes if the raycast hits air or foliage
+                int startY = (int) Math.floor(center.y);
+                int groundY = startY;
 
-                // If vec3d was null (fallback mode), perform a safe surface check
+                // If vec3d is derived from air-aim, we might need to scan down
+                for (int y = startY; y > Math.max(world.getBottomY(), startY - 20); y--) {
+                        BlockPos pos = new BlockPos((int) center.x, y, (int) center.z);
+                        if (!world.getBlockState(pos).isAir()) {
+                                // Found solid block, spawn on top (y + 1)
+                                // But if startY was already inside a block (e.g. side hit), we might want y +
+                                // 1?
+                                // If we hit top face of block at 64.0 -> floor is 64. 64 is solid. groundY =
+                                // 65.
+                                // Standard: floor is the block coordinate.
+                                groundY = y + 1;
+                                break;
+                        }
+                }
+
+                // If vec3d was null (fallback mode), force surface check using proper world
+                // height
                 if (vec3d == null) {
                         groundY = world.getTopY(net.minecraft.world.Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
                                         (int) center.x, (int) center.z);

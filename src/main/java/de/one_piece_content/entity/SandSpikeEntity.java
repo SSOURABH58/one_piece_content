@@ -220,15 +220,12 @@ public class SandSpikeEntity extends Entity implements GeoEntity {
                     lastRenderedWave = wave;
                     waveStartTick = this.age;
                     event.getController().forceAnimationReset();
+                    // Normal Speed
+                    event.getController().setAnimationSpeed(1.0d);
                 }
 
-                // 2. Client-Side Duration Cap
-                // Animation is exactly 46 ticks long. Stop immediately after to prevent
-                // holding/looping.
-                // Explicitly prevent looping by stopping exactly at animation end.
-                if (this.age - waveStartTick > 46) {
-                    return PlayState.STOP;
-                }
+                // Removed Duration Cap to allow animation to hold final frame (invisible)
+                // instead of resetting to Bind Pose (visible).
 
                 return event.setAndContinue(RawAnimation.begin().thenPlay("animation.sand_spike"));
             }
