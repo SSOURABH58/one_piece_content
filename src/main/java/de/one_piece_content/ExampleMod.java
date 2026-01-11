@@ -17,6 +17,8 @@ public class ExampleMod implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		System.out.println("DEBUG: ExampleMod (one_piece_content) starting...");
+
 		LOGGER.info("Example Content initializing");
 		de.one_piece_content.config.SandSpikeConfig.load();
 		LOGGER.info("Registering Sounds...");
@@ -25,6 +27,11 @@ public class ExampleMod implements ModInitializer {
 		SpellHandler.register();
 		LOGGER.info("Registering Entities...");
 		OnePieceEntities.register();
+
+		LOGGER.info("Registering Content (Skills, Fruits)...");
+		de.one_piece_content.content.ExampleSkillDefinitions.init();
+		de.one_piece_content.content.ExampleDevilFruits.init();
+
 		de.one_piece_content.network.ContentNetworking.init();
 		LOGGER.info("Initialization Complete.");
 

@@ -116,7 +116,7 @@ public class ExampleSpells {
          * Contains placeholder spells used for development and testing purposes
          */
         public static final Map<String, Entry<SpellConfig>> DUMMY_SPELLS = add_dummies(
-                        List.of("dummy", "quicksand", "sand_blade", "sand_drain", "sand_hand"));
+                        List.of("dummy", "quicksand", "sand_blade", "sand_drain", "sand_hand", "dragon_breath"));
 
         // ==================== Spell Configuration Methods ====================
 

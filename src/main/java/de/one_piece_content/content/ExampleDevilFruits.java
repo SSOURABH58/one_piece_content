@@ -76,6 +76,20 @@ public class ExampleDevilFruits {
                                         .build());
 
         /**
+         * Uo Uo no Mi, Model: Seiryu (Azure Dragon Fruit).
+         */
+        public static final Entry<DevilFruitConfig> DRAGON_FRUIT = Registries.DEVIL_FRUITS.register(
+                        ExampleMod.id("dragon_fruit"),
+                        new DevilFruitBuilder()
+                                        .newPath(builder -> builder
+                                                        .add(DUMMY_DEFINITIONS.get("dragon_breath").id()))
+                                        .modelId(Identifier.of(ExampleMod.MOD_ID, "devil_fruit/suna_suna_no_mi.json")) // Reuse
+                                                                                                                       // model
+                                                                                                                       // for
+                                                                                                                       // now
+                                        .build());
+
+        /**
          * Test Devil Fruit 1 configuration.
          * <p>
          * A test Devil Fruit used for development and demonstration purposes.

@@ -30,7 +30,7 @@ public class SandSpikeEntity extends Entity implements GeoEntity {
     private static final RawAnimation SPIKE_ANIM = RawAnimation.begin().thenPlay("animation.sand_spike");
 
     // Increased lifespan for debugging and to ensure animation finishes
-    private static final int LIFE_TICKS = 100;
+    private static final int LIFE_TICKS = 55;
 
     private static final TrackedData<Integer> OWNER_ID = DataTracker.registerData(SandSpikeEntity.class,
             TrackedDataHandlerRegistry.INTEGER);

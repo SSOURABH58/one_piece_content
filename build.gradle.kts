@@ -37,7 +37,7 @@ dependencies {
     modImplementation("net.fabricmc.fabric-api:fabric-api:${property("fabric_version")}")
 
 
-    //modApi(project(":one_piece_rpg"))
+    // modApi(project(":one_piece_api"))
     modApi("maven.modrinth:one_piece_api:TPN4R108")
 
     // Pufferfish's Skills
@@ -58,6 +58,7 @@ dependencies {
     modRuntimeOnly("curse.maven:amecs-reborn-1233121:6487881")
     modRuntimeOnly("curse.maven:modmenu-308702:5810603")
     modImplementation("software.bernie.geckolib:geckolib-fabric-1.21.1:4.7.1")
+    modApi("github.ssourabh58.onepiece:onepiece:1.0.0")
 }
 
 
@@ -78,7 +79,6 @@ loom {
             configName = "Fabric Client"
             runDir("run")
             programArgs("--username", "FabricDev")
-            vmArgs("-javaagent:C:/Users/lamal/.gradle/caches/modules-2/files-2.1/net.fabricmc/sponge-mixin/0.16.3+mixin.0.8.7/3e535042688d1265447e52ad86950b7d9678a5fa/sponge-mixin-0.16.3+mixin.0.8.7.jar")
         }
 
         named("server") {
@@ -86,7 +86,6 @@ loom {
             configName = "Fabric Server"
             runDir("server")
             source(sourceSets.main.get())
-            vmArgs("-javaagent:C:/Users/lamal/.gradle/caches/modules-2/files-2.1/net.fabricmc/sponge-mixin/0.16.3+mixin.0.8.7/3e535042688d1265447e52ad86950b7d9678a5fa/sponge-mixin-0.16.3+mixin.0.8.7.jar")
         }
 
 
