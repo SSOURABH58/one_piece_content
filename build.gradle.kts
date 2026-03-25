@@ -55,8 +55,8 @@ dependencies {
     modRuntimeOnly("maven.modrinth:playeranimator:2.0.0+1.21.1-fabric")
 
     // Development/testing mods
-    modRuntimeOnly("curse.maven:amecs-reborn-1233121:6487881")
-    modRuntimeOnly("curse.maven:modmenu-308702:5810603")
+    // modRuntimeOnly("curse.maven:amecs-reborn-1233121:6487881")
+    // modRuntimeOnly("curse.maven:modmenu-308702:5810603")
     modImplementation("software.bernie.geckolib:geckolib-fabric-1.21.1:4.7.1")
     modApi("github.ssourabh58.onepiece:onepiece:1.0.0")
 }

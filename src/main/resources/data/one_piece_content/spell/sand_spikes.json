@@ -1,0 +1,50 @@
+{
+    "school": "spell_power:physical_melee",
+    "range": 32.0,
+    "tier": 1,
+    "active": {
+        "cast": {
+            "duration": 1.0,
+            "sound": {
+                "id": "spell_engine:generic_fire_casting"
+            }
+        }
+    },
+    "release": {
+        "animation": "spell_engine:two_handed_slam_release",
+        "sound": {
+            "id": "minecraft:entity.player.attack.strong"
+        },
+        "visual_effect": {
+            "id": "one_piece_content:sand_spike"
+        }
+    },
+    "target": {
+        "type": "AIM",
+        "aim": {}
+    },
+    "deliver": {
+        "type": "AOE",
+        "aoe": {
+            "radius": 2.5
+        }
+    },
+    "impacts": [
+        {
+            "action": {
+                "type": "DAMAGE",
+                "damage": {
+                    "amount": 8.0,
+                    "spell_power_coefficient": 1.0
+                }
+            },
+            "target": {
+                "type": "AREA",
+                "area": {
+                    "radius": 2.5,
+                    "height": 4.0
+                }
+            }
+        }
+    ]
+}

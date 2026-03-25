@@ -293,23 +293,22 @@ public class ExampleSpells {
                                 .tier(1)
                                 .casting(cast -> cast
                                                 .duration(1.0f)
-                                                // .animation("one_piece_api:animation.suna.sand_spike") // Handled by
-                                                // custom renderer
                                                 .sound(SpellEngineSounds.GENERIC_FIRE_CASTING.id()))
                                 .release(release -> release
                                                 .animation("spell_engine:two_handed_slam_release")
                                                 .sound(SoundEvents.ENTITY_PLAYER_ATTACK_STRONG.getId()))
                                 .target(SpellFactory.TargetBuilder::aim)
-                                .delivery(deliver -> deliver
-                                                .custom(ExampleMod.id("sand_spikes").toString()))
+                                // Delivery removed to avoid custom handler - handled by JSON override
                                 .impact(impact -> impact
-                                                .damage(0.0f, 0.0f)) // Damage handled by custom handler
+                                                .damage(8.0f, 1.0f))
                                 .cost(cost -> cost
                                                 .cooldown(12f)
                                                 .stamina(20)
                                                 .exhaust(1.0f))
                                 .build();
 
+                // Add visual effect manually via JSON later, as SpellFactory wrapper might not
+                // expose it.
                 return new SpellConfig(spell, "Sand Spikes",
                                 "The ground trembles, then massive sand spikes erupt to impale the target.");
         }

@@ -40,9 +40,6 @@ public class SpellHandler {
                                 ExampleMod.id("yakkodori"),
                                 SpellHandler::onYakkodori);
 
-                SpellHandlers.registerCustomDelivery(
-                                ExampleMod.id("sand_spikes"),
-                                SpellHandler::onSandSpikes);
         }
 
         public static boolean onShishiSonson(

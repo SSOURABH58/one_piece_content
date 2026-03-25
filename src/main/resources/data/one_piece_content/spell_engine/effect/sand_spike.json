@@ -1,0 +1,8 @@
+{
+    "render": {
+        "model": "one_piece_content:geo/sand_spike.geo.json",
+        "texture": "one_piece_content:spell/sand_spike",
+        "animation": "one_piece_content:animations/sand_spike.animation.json"
+    },
+    "lifetime_ticks": 90
+}

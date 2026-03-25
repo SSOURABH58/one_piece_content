@@ -29,8 +29,10 @@ public class SandSpikeEntity extends Entity implements GeoEntity {
     // Animation constant to prevent per-tick object creation
     private static final RawAnimation SPIKE_ANIM = RawAnimation.begin().thenPlay("animation.sand_spike");
 
-    // Increased lifespan for debugging and to ensure animation finishes
-    private static final int LIFE_TICKS = 55;
+    // Cycle: Animation (46 ticks) + Wait = 90 ticks
+    private static final int WAVE_INTERVAL = 90;
+    private static final int ANIMATION_DURATION = 47; // 46 ticks animation + 1 tick buffer
+    private static final int DAMAGE_DELAY = 23; // 0.85s / 0.75 ≈ 1.13s (23 ticks)
 
     private static final TrackedData<Integer> OWNER_ID = DataTracker.registerData(SandSpikeEntity.class,
             TrackedDataHandlerRegistry.INTEGER);
@@ -73,12 +75,12 @@ public class SandSpikeEntity extends Entity implements GeoEntity {
             return;
 
         // Die exactly at the requested frame/tick limit
-        if (this.age >= LIFE_TICKS) {
+        if (this.age >= WAVE_INTERVAL) {
             this.discard();
         }
 
         // Standard damage peak
-        if (this.age == 17) {
+        if (this.age == DAMAGE_DELAY) {
             dealDamage();
         }
     }
@@ -110,8 +112,13 @@ public class SandSpikeEntity extends Entity implements GeoEntity {
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "controller", 0, state -> {
-            if (state.getController().getAnimationState() != AnimationController.State.STOPPED) {
-                return PlayState.CONTINUE;
+            // state.getController().setAnimationSpeed(1.0d);
+            // if (state.getController().getAnimationState() !=
+            // AnimationController.State.STOPPED) {
+            // return PlayState.CONTINUE;
+            // }
+            if (this.age < 1) {
+                return PlayState.STOP;
             }
             return state.setAndContinue(SPIKE_ANIM);
         }));
